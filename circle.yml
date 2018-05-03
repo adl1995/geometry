@@ -37,10 +37,22 @@ machine:
 
 dependencies:
   pre:
+    - |
+        wget "https://raw.githubusercontent.com/boostorg/release-tools/develop/ci_boost_common.py" -P ${HOME}
+        wget "https://raw.githubusercontent.com/boostorg/release-tools/develop/ci_boost_library_check.py" -P ${HOME}
+        wget "https://raw.githubusercontent.com/boostorg/release-tools/develop/ci_boost_release.py" -P ${HOME}
+        wget "https://raw.githubusercontent.com/boostorg/release-tools/develop/ci_boost_status.py" -P ${HOME}
+        echo '#!/bin/bash' > ${HOME}/script.sh
+        echo 'export SCRIPT_N=(${SCRIPT_N})' >> "${HOME}/script.sh"
+        echo 'export SCRIPT=${SCRIPT_N[$CIRCLE_NODE_INDEX]}' >> "${HOME}/script.sh"
+        echo 'export EOL_N=(${EOL_N})' >> "${HOME}/script.sh"
+        echo 'export EOL=${EOL_N[$CIRCLE_NODE_INDEX]}' >> "${HOME}/script.sh"
+        echo 'python "${HOME}/${SCRIPT}.py" "$@"' >> "${HOME}/script.sh"
+        chmod +x "${HOME}/script.sh"
     - sudo apt-get update
 
     # gcc, g++, gcov
-    - sudo apt-get install gcc-4.9 build-essential
+    - sudo apt-get install gcc-4.9 g++-4.9 build-essential
     #- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 10
     #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 10
     - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 10
