@@ -40,7 +40,7 @@ dependencies:
     - sudo apt-get update
 
     # gcc, g++, gcov
-    - sudo apt-get install gcc-4.9 g++-4.9 build-essential
+    - sudo apt-get install gcc-4.9 build-essential
     #- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 10
     #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 10
     - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 10
